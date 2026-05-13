@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:habit_app/add_habit.dart';
+import 'package:habit_app/habit_Tile.dart';
 
 void main() {
   runApp(const MyApp());
@@ -28,11 +30,12 @@ class HabitApp extends StatelessWidget {
 
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.lightBlue.shade300,
+        shadowColor: Colors.amberAccent.shade200,
         elevation: 0,
         title: Text(
           "Habit Tracker",
-          style: GoogleFonts.abel(color: Colors.black),
+          style: GoogleFonts.aclonica(color: Colors.black),
         ),
       ),
 
@@ -41,7 +44,7 @@ class HabitApp extends StatelessWidget {
           builder: (context, orientation) {
             return ListView(
               padding: EdgeInsets.all(
-                MediaQuery.of(context).size.width * 0.04,
+                MediaQuery.of(context).size.width * 0.03,
               ),
               children: const [
                 HabitTile(
@@ -81,104 +84,16 @@ class HabitApp extends StatelessWidget {
       ),
 
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        backgroundColor: Colors.white,
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const AddHabitScreen()),
+          );
+        },
+        backgroundColor: const Color.fromARGB(255, 221, 218, 218),
         child: const Icon(Icons.add, color: Colors.black),
       ),
     );
   }
 }
 
-class HabitTile extends StatelessWidget {
-  final String habitName;
-  final String habitSub;
-  final IconData icon;
-  final String streakCounter;
-
-  const HabitTile({
-    super.key,
-    required this.habitName,
-    required this.habitSub,
-    required this.icon,
-    required this.streakCounter,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
-    final isPortrait =
-        MediaQuery.of(context).orientation == Orientation.portrait;
-
-    double iconSize =
-        isPortrait ? size.width * 0.06 : size.height * 0.05;
-
-    double titleSize =
-        isPortrait ? size.width * 0.035 : size.height * 0.04;
-
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: EdgeInsets.all(size.width * 0.04),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(10),
-      ),
-
-      child: isPortrait
-          ? Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  children: [
-                    Icon(icon, size: iconSize),
-                    SizedBox(width: size.width * 0.02),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          habitName,
-                          style: GoogleFonts.abel(
-                            fontSize: titleSize,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                        Text(
-                          habitSub,
-                          style: const TextStyle(color: Colors.green),
-                        ),
-                      ],
-                    ),
-                  ],
-                ),
-                Column(
-                  children: [
-                    Text(streakCounter),
-                    const Text("Done"),
-                  ],
-                ),
-              ],
-            )
-
-          // LANDSCAPE LAYOUT
-          : Column(
-              children: [
-                Icon(icon, size: iconSize),
-                const SizedBox(height: 10),
-                Text(
-                  habitName,
-                  style: GoogleFonts.abel(
-                    fontSize: titleSize,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                Text(
-                  habitSub,
-                  style: const TextStyle(color: Colors.green),
-                ),
-                const SizedBox(height: 10),
-                Text(streakCounter),
-                const Text("Done"),
-              ],
-            ),
-    );
-  }
-}
