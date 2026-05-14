@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:habit_app/models/habit.dart';
 
 class AddHabitScreen extends StatefulWidget {
   const AddHabitScreen({super.key});
@@ -9,8 +10,11 @@ class AddHabitScreen extends StatefulWidget {
 }
 
 class _AddHabitScreenState extends State<AddHabitScreen> {
-  final TextEditingController habitNameController = TextEditingController();
-  final TextEditingController habitGoalController = TextEditingController();
+  final TextEditingController habitNameController =
+      TextEditingController();
+
+  final TextEditingController habitGoalController =
+      TextEditingController();
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -21,118 +25,130 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
     super.dispose();
   }
 
+  void saveHabit() {
+    if (formKey.currentState!.validate()) {
+      Habit newHabit = Habit(
+        name: habitNameController.text,
+        goal: habitGoalController.text,
+        icon: Icons.check_circle_outline,
+        streak: "0",
+      );
+
+      Navigator.pop(context, newHabit);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 245, 245, 245),
+      backgroundColor: const Color(0xffF5F5F5),
+
       appBar: AppBar(
         backgroundColor: Colors.lightBlue.shade300,
         centerTitle: true,
         title: Text(
           "Add Habit",
-          style: GoogleFonts.aclonica(
+          style: GoogleFonts.poppins(
+            fontWeight: FontWeight.bold,
             color: Colors.black,
-            fontSize: 22,
           ),
         ),
       ),
+
       body: Padding(
         padding: EdgeInsets.all(size.width * 0.05),
+
         child: Form(
           key: formKey,
+
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 "Habit Name",
                 style: GoogleFonts.poppins(
-                  fontSize: 18,
                   fontWeight: FontWeight.w600,
+                  fontSize: 16,
                 ),
               ),
+
               const SizedBox(height: 10),
+
               TextFormField(
                 controller: habitNameController,
+
                 decoration: InputDecoration(
-                  hintText: "Enter your habit",
+                  hintText: "Enter habit name",
+
                   filled: true,
                   fillColor: Colors.white,
+
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(
-                      color: Colors.lightBlue.shade300,
-                      width: 2,
-                    ),
-                  ),
                 ),
+
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
-                    return 'This field cannot be empty';
+                    return "Please enter habit name";
                   }
                   return null;
                 },
               ),
+
               const SizedBox(height: 25),
+
               Text(
                 "Daily Goal",
                 style: GoogleFonts.poppins(
-                  fontSize: 18,
                   fontWeight: FontWeight.w600,
+                  fontSize: 16,
                 ),
               ),
+
               const SizedBox(height: 10),
+
               TextFormField(
-                
                 controller: habitGoalController,
+
                 decoration: InputDecoration(
                   hintText: "Example: 2 km / 10 pages",
+
                   filled: true,
                   fillColor: Colors.white,
+
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(12),
                   ),
-                  focusedBorder: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
-                    borderSide: BorderSide(
-                      color: Colors.lightBlue.shade300,
-                      width: 2,
-                    ),
-                  ),
                 ),
+
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
-                    return 'Please enter your goal';
+                    return "Please enter daily goal";
                   }
                   return null;
                 },
               ),
+
               const SizedBox(height: 40),
+
               SizedBox(
                 width: double.infinity,
                 height: 55,
+
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.lightBlue.shade300,
+
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-                  onPressed: () {
-                    if (formKey.currentState!.validate()) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                            content: Text("Habit Added Successfully")),
-                      );
 
-                      habitNameController.clear();
-                      habitGoalController.clear();
-                    }
-                  },
+                  onPressed: saveHabit,
+
                   child: Text(
                     "Save Habit",
                     style: GoogleFonts.poppins(
