@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class HabitTile extends StatelessWidget {
+class HabitTile extends StatefulWidget {
   final String habitName;
   final String habitGoal;
   final IconData icon;
@@ -16,20 +16,25 @@ class HabitTile extends StatelessWidget {
   });
 
   @override
+  State<HabitTile> createState() => _HabitTileState();
+}
+
+class _HabitTileState extends State<HabitTile> {
+  @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
 
     return Container(
-      margin: const EdgeInsets.only(bottom: 10),
-      padding: EdgeInsets.all(size.width * 0.02),
+      margin: const EdgeInsets.only(bottom: 15),
+      padding: EdgeInsets.all(size.width * 0.03),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: const Color.fromARGB(255, 240, 239, 237),
         borderRadius: BorderRadius.circular(14),
-        boxShadow: const [
+        boxShadow: [
           BoxShadow(
-            color: Colors.black12,
-            blurRadius: 6,
-            offset: Offset(0, 2),
+            color: Colors.orange.shade50,
+            blurRadius: 5,
+            offset: Offset(0, 3),
           ),
         ],
       ),
@@ -40,7 +45,7 @@ class HabitTile extends StatelessWidget {
           Row(
             children: [
               Icon(
-                icon,
+                widget.icon,
                 size: size.width * 0.06,
                 color: Colors.lightBlue,
               ),
@@ -51,17 +56,17 @@ class HabitTile extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Text(
-                    habitName,
-                    style: GoogleFonts.poppins(
-                      fontSize: size.width * 0.035,
-                      fontWeight: FontWeight.bold,
+                    widget.habitName,
+                    style: GoogleFonts.akshar(
+                      fontSize: size.width * 0.040,
+                      fontWeight: FontWeight.w500,
                     ),
                   ),
 
                   const SizedBox(height: 4),
 
                   Text(
-                    habitGoal,
+                    widget.habitGoal,
                     style: GoogleFonts.poppins(
                       color: Colors.grey[700],
                     ),
@@ -74,10 +79,10 @@ class HabitTile extends StatelessWidget {
           Column(
             children: [
               Text(
-                streakCounter,
+                widget.streakCounter,
                 style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 16,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 18,
                 ),
               ),
 

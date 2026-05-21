@@ -10,11 +10,9 @@ class AddHabitScreen extends StatefulWidget {
 }
 
 class _AddHabitScreenState extends State<AddHabitScreen> {
-  final TextEditingController habitNameController =
-      TextEditingController();
+  final TextEditingController habitNameController = TextEditingController();
 
-  final TextEditingController habitGoalController =
-      TextEditingController();
+  final TextEditingController habitGoalController = TextEditingController();
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
 
@@ -44,25 +42,15 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
 
     return Scaffold(
       backgroundColor: const Color(0xffF5F5F5),
-
       appBar: AppBar(
-        backgroundColor: Colors.lightBlue.shade300,
-        centerTitle: true,
-        title: Text(
+        title:const Text(
           "Add Habit",
-          style: GoogleFonts.poppins(
-            fontWeight: FontWeight.bold,
-            color: Colors.black,
-          ),
         ),
       ),
-
       body: Padding(
         padding: EdgeInsets.all(size.width * 0.05),
-
         child: Form(
           key: formKey,
-
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -73,23 +61,19 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                   fontSize: 16,
                 ),
               ),
-
-              const SizedBox(height: 10),
-
+              const SizedBox(height: 8),
               TextFormField(
                 controller: habitNameController,
-
                 decoration: InputDecoration(
                   hintText: "Enter habit name",
-
                   filled: true,
                   fillColor: Colors.white,
-
+                  focusColor: Colors.blueGrey,
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    borderRadius: BorderRadius.circular(15),
+                    gapPadding: BorderSide.strokeAlignCenter,
                   ),
                 ),
-
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
                     return "Please enter habit name";
@@ -97,9 +81,7 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                   return null;
                 },
               ),
-
-              const SizedBox(height: 25),
-
+              const SizedBox(height: 10),
               Text(
                 "Daily Goal",
                 style: GoogleFonts.poppins(
@@ -107,23 +89,19 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                   fontSize: 16,
                 ),
               ),
-
               const SizedBox(height: 10),
-
               TextFormField(
                 controller: habitGoalController,
-
                 decoration: InputDecoration(
                   hintText: "Example: 2 km / 10 pages",
-
+                  focusColor: Colors.blueGrey,
                   filled: true,
                   fillColor: Colors.white,
-
                   border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(12),
+                    gapPadding: BorderSide.strokeAlignCenter,
+                    borderRadius: BorderRadius.circular(15),
                   ),
                 ),
-
                 validator: (value) {
                   if (value == null || value.trim().isEmpty) {
                     return "Please enter daily goal";
@@ -131,29 +109,24 @@ class _AddHabitScreenState extends State<AddHabitScreen> {
                   return null;
                 },
               ),
-
-              const SizedBox(height: 40),
-
+              const SizedBox(height: 20),
               SizedBox(
                 width: double.infinity,
-                height: 55,
-
+                height: 40,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.lightBlue.shade300,
-
+                    backgroundColor: const Color.fromARGB(255, 14, 50, 67),
+                    foregroundColor: Colors.white,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12),
                     ),
                   ),
-
                   onPressed: saveHabit,
-
                   child: Text(
                     "Save Habit",
                     style: GoogleFonts.poppins(
-                      color: Colors.black,
-                      fontSize: 18,
+                      color: Colors.white,
+                      fontSize: 16,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
